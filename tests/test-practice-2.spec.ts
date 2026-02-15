@@ -1,4 +1,4 @@
-import { Browser, Page, test } from 'playwright/test';
+import { Browser, expect, Page, test } from 'playwright/test';
 
 (async () => {
 
@@ -42,6 +42,11 @@ import { Browser, Page, test } from 'playwright/test';
             await test.step('Select on a radio button and click a checkbox', async () => {
                 await page.getByRole('checkbox', { name: 'Hamburguesa 🍔' }).check();
                 await page.getByRole('checkbox', { name: 'Hamburguesa 🍔' }).uncheck();
+                await expect(page.getByRole('checkbox', { name: 'Hamburguesa 🍔' })).not.toBeChecked();
+
+                await expect(page.getByRole('checkbox', { name: 'Pizza 🍕' }), 'El checkbox de Pizza debe estar seleccionado').toBeChecked();
+
+                // Radio button
                 await page.getByRole('radio', { name: 'No' }).check();
             })
         })
